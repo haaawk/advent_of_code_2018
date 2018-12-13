@@ -4,9 +4,8 @@ int sum() {
     int child_count, metadata_count;
     cin >> child_count >> metadata_count;
     int res = 0;
-    for (int i = 0; i < child_count; ++i)
-        res += sum();
-    for (int i = 0; i < metadata_count; ++i) {
+    FOR(i, 0, child_count) res += sum();
+    FOR(i, 0, metadata_count) {
         int m;
         cin >> m;
         res += m;

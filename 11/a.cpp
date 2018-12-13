@@ -12,11 +12,11 @@ int main() {
     int max = -1000000;
     int bx = -1;
     int by = -1;
-    for (int i = 1; i < 299; ++i)
-        for (int j = 1; j < 299; ++j) {
+    FOR(i, 1, 299)
+        FOR(j, 1, 299) {
             int sum = 0;
-            for (int a = 0; a < 3; ++a)
-                for (int b = 0; b < 3; ++b)
+            FOR(a, 0, 3)
+                FOR(b, 0, 3)
                     sum += count(i + a, j + b);
             if (sum > max) {
                 max = sum;

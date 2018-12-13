@@ -5,9 +5,8 @@ int sum() {
     cin >> child_count >> metadata_count;
     int res = 0;
     vector<int> c(child_count);
-    for (int i = 0; i < child_count; ++i)
-        c[i] = sum();
-    for (int i = 0; i < metadata_count; ++i) {
+    FOR(i, 0, child_count) c[i] = sum();
+    FOR(i, 0, metadata_count) {
         int m;
         cin >> m;
         if (child_count == 0) {

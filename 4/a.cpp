@@ -72,9 +72,7 @@ int main() {
                 if (events[i].index() == 2) {
                     sleep_start = VGET(events[i], time);
                 } else {
-                    for (int j = sleep_start; j < VGET(events[i], time); ++j) {
-                        stats[j]++;
-                    }
+                    FOR(j, sleep_start, VGET(events[i], time)) stats[j]++;
                 }
             }
             ++i;

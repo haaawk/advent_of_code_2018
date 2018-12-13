@@ -28,7 +28,7 @@ int main() {
     };
     for (uint64_t i = 1; i < m; ++i, cp = (cp + 1) % p) {
         if (i % 23 == 0) {
-            for (int j = 0; j < 7; ++j) back();
+            FOR(j, 0, 7)  back();
             s[cp] += i + *it;
             it = ch.erase(it);
         } else {

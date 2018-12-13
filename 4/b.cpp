@@ -56,9 +56,7 @@ int main() {
             if (events[i].index() == 2) {
                 sleep_start = VGET(events[i], time);
             } else {
-                for (int j = sleep_start; j < VGET(events[i], time); ++j) {
-                    count[make_pair(id, j)]++;
-                }
+                FOR(j, sleep_start, VGET(events[i], time)) count[make_pair(id, j)]++;
                 sleep_start = -1;
             }
             ++i;

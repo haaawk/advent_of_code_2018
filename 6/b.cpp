@@ -25,17 +25,13 @@ int main() {
     vector<int> x_summary(maxx + 1);
     vector<int> y_summary(maxy + 1);
 
-    for (int x = minx; x <= maxx; ++x) {
-        for (auto& p : points) {
+    FOR(x, minx, maxx + 1)
+        for (auto& p : points)
             x_summary[x] += abs(p.first - x);
-        }
-    }
 
-    for (int y = miny; y <= maxy; ++y) {
-        for (auto& p : points) {
+    FOR(y, miny, maxy + 1)
+        for (auto& p : points)
             y_summary[y] += abs(p.second - y);
-        }
-    }
 
     auto total_axis_distance = [&] (vector<int>& s, int x, int min, int max) -> Num {
         if (x < min) return s[min] + points.size() * (min - x);
@@ -48,11 +44,9 @@ int main() {
     };
 
     int count = 0;
-    for (int x = minx - limit; x < maxx + limit; ++x) {
-        for (int y = miny - limit; y < maxy + limit; ++y) {
+    FOR(x, minx - limit, maxx + limit)
+        FOR(y, miny - limit, maxy + limit)
             count += total_distance(x, y) < limit ? 1 : 0;
-        }
-    }
 
     cout << count << endl;
 

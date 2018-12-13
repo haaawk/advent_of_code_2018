@@ -24,10 +24,10 @@ int main() {
 
     string last_pattern = "";
     int shift = 0;
-    for (int64_t g = 0; g < 50000000000; ++g) {
+    FOR(g, 0, 50000000000) {
         char prev = '.';
         char prev2 = '.';
-        for (int i = 0; i < s.size() - 2; ++i) {
+        FOR(i, 0, s.size() - 2) {
             char next_prev = s[i];
             s[i] = get(s, i, prev2, prev);
             prev2 = prev;
@@ -39,9 +39,7 @@ int main() {
         shift += first - 5;
         if (s == last_pattern) {
             int64_t sum = 0;
-            for (int i = 0; i < s.size(); ++i) {
-                sum += s[i] == '.' ? 0 : (i + shift + 50000000000 - g - 6);
-            }
+            FORA(i, s) sum += s[i] == '.' ? 0 : (i + shift + 50000000000 - g - 6);
             cout << sum << endl;
             return 0;
         }

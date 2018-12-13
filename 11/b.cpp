@@ -11,8 +11,8 @@ int main() {
 
     vector<vector<vector<int>>> g(GS, vector<vector<int>>(GS, vector<int>(GS, 0)));
     auto for_each_rect = [&] (int size, auto&& fn) {
-        for (int i = 0; i < GS - size; ++i)
-            for (int j = 0; j < GS - size; ++j) {
+        FOR(i, 0, GS - size)
+            FOR(j, 0, GS - size) {
                 int val = g[size][i][j] = fn(i, j);
                 if (val > max) {
                     max = val;
@@ -30,7 +30,7 @@ int main() {
     for_each_rect(1, [&] (int i, int j) {
         return g[0][i][j] + g[0][i + 1][j] + g[0][i][j + 1] + g[0][i + 1][j + 1];
     });
-    for (int size = 2; size < GS - 1; ++size)
+    FOR(size, 2, GS - 1)
         for_each_rect(size, [&] (int i, int j) {
             return g[size - 1][i + 1][j] + g[size - 1][i][j + 1]
                 - g[size - 2][i + 1][j + 1] + g[0][i][j] + g[0][i + size][j + size];

@@ -4,7 +4,7 @@ int main() {
     vector<string> lines = read_lines();
     Num a = 0;
     Num b = 0;
-    for (int i = 0; i < lines.size(); ++i) {
+    FORA(i, lines) {
         string& line = lines[i];
         map<char, Num> count;
         for (char c : line) {
