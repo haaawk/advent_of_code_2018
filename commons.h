@@ -13,6 +13,14 @@
 #include<list>
 #include<queue>
 
+using namespace std;
+
+using Num = int64_t;
+using Vec = vector<Num>;
+using Set = set<Num>;
+template<typename T> using Map = map<Num, T>;
+template<typename T> using Grid = vector<vector<T>>;
+
 #define ALL(container) begin(container), end(container)
 #define CHECK(name, condition) [&](auto& name) { return (condition); }
 #define CONVERT(name, expression) [&] (auto& name) { return expression; }
@@ -21,14 +29,8 @@
 #define CONTAINS(container, name, condition) (FIND(container, name, condition) != end(container))
 #define COUNT(container, name, condition) count_if(ALL(container), CHECK(name, condition))
 #define VGET(var, field) visit([] (auto&& long_unique_name) { return long_unique_name.field; }, var)
-
-using namespace std;
-
-using Num = int64_t;
-using Vec = vector<Num>;
-using Set = set<Num>;
-template<typename T> using Map = map<Num, T>;
-template<typename T> using Grid = vector<vector<T>>;
+#define FOR(var, start, end) for (Num var = (start), finish = (end); var < finish; ++var)
+#define FORA(var, container) FOR(var, 0, container.size())
 
 vector<string> read_lines() {
     vector<string> lines;
