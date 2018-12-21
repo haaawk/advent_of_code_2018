@@ -1,71 +1,45 @@
 #include "../commons.h"
 
-pair<int, set<pair<int, int>>> paths(const string& P, int p, const set<pair<int, int>>& points, vector<string>& b) {
+set<pair<int, int>> paths(const string& P, int& p, const set<pair<int, int>>& points, vector<string>& b) {
     ++p;
     set<pair<int, int>> res(ALL(points));
-    while (true) {
-        while (P[p] != '(' && P[p] != '|' && P[p] != ')' && P[p] != '$') {
-            set<pair<int, int>> new_res;
-            for (auto point : res) {
-                int x = point.first;
-                int y = point.second;
-                switch(P[p]) {
-                    case 'N':
-                        --x;
-                        assert(x > -1);
-                        b[x][y] = '-';
-                        --x;
-                        assert(x > -1);
-                        if (b[x][y] != 'X')
-                        b[x][y] = '.';
-                        break;
-                    case 'E':
-                        ++y;
-                        assert(y < b[0].size());
-                        b[x][y] = '|';
-                        ++y;
-                        assert(y < b[0].size());
-                        if (b[x][y] != 'X')
-                        b[x][y] = '.';
-                        break;
-                    case 'S':
-                        ++x;
-                        assert(x < b.size());
-                        b[x][y] = '-';
-                        ++x;
-                        assert(x < b.size());
-                        if (b[x][y] != 'X')
-                        b[x][y] = '.';
-                        break;
-                    case 'W':
-                        --y;
-                        assert(y > -1);
-                        b[x][y] = '|';
-                        --y;
-                        assert(y > -1);
-                        if (b[x][y] != 'X')
-                        b[x][y] = '.';
-                        break;
-                }
-                new_res.insert({x,y});
-            }
-            res = std::move(new_res);
-            ++p;
+    auto move = [&] (int xx, int yy, char door) mutable {
+        set<pair<int, int>> new_res;
+        for (auto point : res) {
+            int x = point.first;
+            int y = point.second;
+            auto step = [&] {
+                x += xx;
+                y += yy;
+                assert(x > -1);
+                assert(y > -1);
+                assert(x < b.size());
+                assert(y < b[0].size());
+            };
+            step();
+            b[x][y] = door;
+            step();
+            b[x][y] = b[x][y] == 'X' ? 'X' : '.';
+            new_res.insert({x,y});
         }
-        if (P[p] == '(') {
-            auto op = paths(P, p, res, b);
-            p = op.first;
-            res = std::move(op.second);
-            ++p;
-        } else {
-            while (P[p] == '|') {
-                auto op = paths(P, p, points, b);
-                p = op.first;
-                res.insert(ALL(op.second));
-            }
-            return {p, std::move(res)};
-        }
+        res = std::move(new_res);
     };
+    while (P[p] != ')' && P[p] != '$') {
+        switch(P[p]) {
+            case 'N': move(-1, 0, '-'); break;
+            case 'E': move(0, 1, '|'); break;
+            case 'S': move(1, 0, '-'); break;
+            case 'W': move(0, -1, '|'); break;
+            case '(': res = paths(P, p, res, b); break;
+            case '|':
+                auto op = paths(P, p, points, b);
+                res.insert(ALL(op));
+                --p;
+                break;
+        }
+        ++p;
+    }
+    return res;
 }
 
 int main() {
@@ -78,7 +52,8 @@ int main() {
     int x = 1000;
     int y = 1000;
     B[x][y] = 'X';
-    paths(lines[0], 0, {make_pair(x,y)}, B);
+    int p = 0;
+    paths(lines[0], p, {make_pair(x,y)}, B);
 
     int inf = 2000000000;
     vector<vector<int>> d(size, vector<int>(size, inf));
@@ -106,10 +81,7 @@ int main() {
     }
 
     int res = 0;
-
-    for (int i = 0; i < d.size(); ++i)
-        for (int j = 0; j < d[0].size(); ++j)
-            if (d[i][j] < inf) res = max(res, d[i][j]);
+    FORA(i, d) FORA(j, d[0]) if (d[i][j] < inf) res = max(res, d[i][j]);
 
     cout << res << endl;
     return 0;

@@ -146,8 +146,8 @@ Grid<T> read_grid() {
 }
 
 template<typename T>
-void print(vector<T>& v) {
-    for (T& e : v) {
+void print(const vector<T>& v) {
+    for (const T& e : v) {
         cout << e << " ";
     }
     cout << endl;
