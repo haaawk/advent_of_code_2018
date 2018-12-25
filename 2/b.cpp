@@ -1,4 +1,5 @@
 #include "../commons.h"
+#include "../for_each.h"
 
 int main() {
     vector<string> lines = read_lines();

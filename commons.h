@@ -160,14 +160,3 @@ void print(Grid<T>& g) {
         print(r);
     }
 }
-
-template<typename T, typename Func>
-void for_each_pair(vector<T>& elems, Func&& action) {
-    for (int i = 0; i < elems.size(); ++i) {
-        for (int j = i + 1; j < elems.size(); ++j) {
-            if (action(elems[i], elems[j])) {
-                return;
-            }
-        }
-    }
-}
