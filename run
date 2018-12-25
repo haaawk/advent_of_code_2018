@@ -1,0 +1,2 @@
+#!/bin/bash
+g++-mp-8 -O3 -std=c++17 $1.cpp && time ./a.out < input.txt | tee /dev/tty | tail -n1 | pbcopy
