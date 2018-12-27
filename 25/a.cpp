@@ -1,6 +1,6 @@
 #include "../commons.h"
 #include <find_and_union.h>
-#include "../for_each.h"
+#include <for_each.h>
 #include "../points.h"
 
 int main() {
