@@ -1,5 +1,5 @@
 #include "../commons.h"
-#include "../find-and-union.h"
+#include <find_and_union.h>
 #include "../for_each.h"
 #include "../points.h"
 
